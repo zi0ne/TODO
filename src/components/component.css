@@ -14,13 +14,13 @@
 
 .header{
     position: fixed; /*위치 상단 고정*/
-    top : 0px;
-    margin-left: 90px;
+    top : 13vh;
+    margin-left: 10vh;
 }
 
 .list{
     position: fixed;
-    height: 50vh;
+    height: 30vh;
     overflow-y: scroll; /*영역 벗어나면 스크롤*/
     margin-top: 10vh;
     
@@ -56,13 +56,17 @@
 
 .react-calendar__month-view__days__day{
   display: inline-block;
-  padding: 10px 20px;
+  padding: 15px 20px;
   background-color: #f8fff8;
   color: black;
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
 }
 
 .react-calendar{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10vh;
+  justify-content: center;
   width: 50%;
 }
