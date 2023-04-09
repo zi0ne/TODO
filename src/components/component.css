@@ -9,6 +9,7 @@
     justify-content: center;
     height: 80vh;
     position: relative;
+    width: 50%;
 }
 
 .header{
@@ -25,7 +26,7 @@
     
 }
 
-button {
+.button {
     background-color: #4CAF50; 
     border: none; 
     color: white; 
@@ -53,3 +54,15 @@ button {
     margin-left: 15px;
   }
 
+.react-calendar__month-view__days__day{
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f8fff8;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.react-calendar{
+  width: 50%;
+}

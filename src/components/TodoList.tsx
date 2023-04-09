@@ -33,7 +33,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
 
   // useEffect를 사용하여 컴포넌트가 처음 렌더링 될 때, 서버에서 todo를 받아와 상태로 설정
   useEffect(() => {
-    fetch("http://localhost:4000/todos")
+    fetch("http://localhost:3000/todos")
       .then((response) => response.json())
       .then((data) => setTodos(data));
   }, []);
@@ -46,7 +46,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
       text,
       done: false,
     };
-    fetch("http://localhost:4000/todos", {
+    fetch("http://localhost:3000/todos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
       return todo; //done의 반대로 설정한 후
     });
     setTodos(updatedTodos); // 업데이트 된 todo배열을 setTodo 상태로 저장
-    fetch(`http://localhost:4000/todos/${id}`, { //업데이트 할 항목의 url
+    fetch(`http://localhost:3000/todos/${id}`, { //업데이트 할 항목의 url
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +83,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
     const filteredTodos = todos.filter((todo) => todo.id !== id);
     setTodos(filteredTodos); //항목 업데이트
     //해당 url을 fetch하여 삭제시킴
-    fetch(`http://localhost:4000/todos/${id}`, {
+    fetch(`http://localhost:3000/todos/${id}`, {
       method: "DELETE",
     });
   };
@@ -109,7 +109,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
                 onChange={() => handleTodoToggle(todo.id)}
               />
               {todo.text} - {todo.done ? "done " : "not done "}
-              <button onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
+              <button className="button" onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
             </li>
           ))}
         </ul>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TodoList, { Todo } from './components/TodoList';
 import Calendar from 'react-calendar';
+import './App.css'
 
 //Todo 상태관리
 export const App: React.FC = () => {
@@ -37,7 +38,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='full'>
       <Calendar />
       <TodoList todos={todos} onToggleDone={handleTodoToggle} onDeleteTodo={handleDeleteTodo} />
     </div>

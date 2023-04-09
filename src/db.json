@@ -1,69 +1,29 @@
 {
-    "todos": [
-      {
-        "id": 1,
-        "text": "오늘의 할일",
-        "done": false
-      },
-      {
-        "id": 2,
-        "text": "밥 먹기",
-        "done": true
-      },
-      {
-        "id": 3,
-        "text": "운동하기",
-        "done": true
-      },
-      {
-        "id": 4,
-        "text": "공부하기",
-        "done": true
-      },
-      {
-        "id": 5,
-        "text": "책보기",
-        "done": true
-      },
-      {
-        "id": 6,
-        "text": "놀러가기",
-        "done": false
-      },
-      {
-        "id": 7,
-        "text": "게임하기",
-        "done": false
-      },
-      {
-        "id": 8,
-        "text": "복습하기",
-        "done": false
-      },
-      {
-        "id": 9,
-        "text": "예습하기",
-        "done": false
-      },
-      {
-        "id": 10,
-        "text": "잠자기",
-        "done": false
-      },
-      {
-        "id": 11,
-        "text": "핸드폰하기",
-        "done": false
-      },
-      {
-        "id": 12,
-        "text": "많이 웃기",
-        "done": false
-      },
-      {
-        "id": 13,
-        "text": "즐거워하기",
-        "done": false
-      }
-    ]
-  }
+  "todos": [
+    {
+      "id": 1,
+      "text": "오늘의 할일",
+      "done": false
+    },
+    {
+      "id": 2,
+      "text": "밥 먹기",
+      "done": true
+    },
+    {
+      "id": 3,
+      "text": "운동하기",
+      "done": true
+    },
+    {
+      "id": 4,
+      "text": "공부하기",
+      "done": true
+    },
+    {
+      "id": 5,
+      "text": "책보기",
+      "done": true
+    }
+  ]
+}
