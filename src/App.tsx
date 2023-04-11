@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import TodoList, { Todo } from './components/TodoList';
-import Calendar from 'react-calendar';
+import Calendar from './components/calendar';
 import './App.css'
+// json-server --watch db.json --port 3000
 
 //Todo 상태관리
 export const App: React.FC = () => {
@@ -37,9 +38,13 @@ export const App: React.FC = () => {
     setTodos(updatedTodos);
   };
 
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth()+1);
+
+
   return (
     <div className='full'>
-      <Calendar />
+      <Calendar year={currentYear} month={currentMonth}/>
       <TodoList todos={todos} onToggleDone={handleTodoToggle} onDeleteTodo={handleDeleteTodo} />
     </div>
   );

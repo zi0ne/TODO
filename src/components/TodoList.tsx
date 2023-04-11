@@ -94,8 +94,8 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
     <div className="construct">
       <div className="header">
         <span className="rowDiv">
-        <h1>Todo List</h1>
-        <h3>{getCurrentDate()}</h3>
+        <h2>Todo List</h2>
+        <h5>{getCurrentDate()}</h5>
         </span>
         <TodoForm onAdd={handleAddTodo} />
       </div>

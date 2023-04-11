@@ -1,0 +1,44 @@
+.calendar-wrap{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8%;
+}
+.day-cell{
+    display: flex;
+    flex-direction: row;
+}
+.calendar-header{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+  
+table{
+    margin-top: 5%;
+    table-layout: fixed;
+    width: 80%;
+    height: 50%;
+    text-align: center;
+}
+
+td{
+    flex-grow:1;
+    align-items: center;
+    justify-content: center;
+}
+
+button{
+    text-align: center;
+    display: flex;
+    height: 80%;
+}
+thead{
+    width:  20%;
+}
