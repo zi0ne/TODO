@@ -22,7 +22,7 @@ export interface TodoListProps {
   const year = today.getFullYear();
   const month = `${today.getMonth()+1}`.padStart(2,'0');
   const date = `${today.getDate()}`.padStart(2,'0');
-  return`(${year}. ${month}. ${date})`;
+  return`${year}. ${month}. ${date}`;
 }
 
 const TodoList: React.FunctionComponent<TodoListProps> = ({
@@ -33,28 +33,30 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
 
   // useEffect를 사용하여 컴포넌트가 처음 렌더링 될 때, 서버에서 todo를 받아와 상태로 설정
   useEffect(() => {
-    fetch("http://localhost:3000/todos")
+    fetch("https://my-json-server.typicode.com/zi0ne/TODO_DB/db")
       .then((response) => response.json())
-      .then((data) => setTodos(data));
+      .then((data) => setTodos(data.todos));
   }, []);
 
   
   //TodoForm 컴포넌트에서 입력된 값을 서버에 POST 요청으로 보내고, 서버에서 응답받은 데이터를 상태에 추가
   const handleAddTodo = (text: string) => {
-    const newTodo: Todo = {
-      id: todos.length + 1,//id 는 고유한 값이어야하므로 길이에 +1 한 값을 주어 각각이 고유한 값을 갖도록 함
-      text,
-      done: false,
-    };
-    fetch("http://localhost:3000/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newTodo), // 새로운 항목을 JSON형식으로 변환하여 바디로 보냄
-    })
-      .then((response) => response.json()) //응답을 받았다면, JSON 데이터를 파싱
-      .then((data) => setTodos([...todos, data])); //todo 항목 배열에 추가
+     const newTodo: Todo = {
+       id: todos.length + 1,//id 는 고유한 값이어야하므로 길이에 +1 한 값을 주어 각각이 고유한 값을 갖도록 함
+       text,
+       done: false,
+     };
+    // fetch("https://my-json-server.typicode.com/zi0ne/TODO_DB/db", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(newTodo), // 새로운 항목을 JSON형식으로 변환하여 바디로 보냄
+    // })
+    //   .then((response) => response.json()) //응답을 받았다면, JSON 데이터를 파싱
+    //   .then((data) => setTodos([...todos, data])); //todo 항목 배열에 추가
+    const updatedTodos = [...todos, newTodo]; // 새로운 배열을 생성하여 항목 추가
+    setTodos(updatedTodos);
   };
 
 // 항목의 완료,미완료 상태를 보여주는 함수, 인자로 id가 들어가고 이는 number타입임
@@ -67,7 +69,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
       return todo; //done의 반대로 설정한 후
     });
     setTodos(updatedTodos); // 업데이트 된 todo배열을 setTodo 상태로 저장
-    fetch(`http://localhost:3000/todos/${id}`, { //업데이트 할 항목의 url
+    fetch(`https://my-json-server.typicode.com/zi0ne/TODO_DB/db`, { //업데이트 할 항목의 url
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +85,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
     const filteredTodos = todos.filter((todo) => todo.id !== id);
     setTodos(filteredTodos); //항목 업데이트
     //해당 url을 fetch하여 삭제시킴
-    fetch(`http://localhost:3000/todos/${id}`, {
+    fetch(`https://my-json-server.typicode.com/zi0ne/TODO_DB/db`, {
       method: "DELETE",
     });
   };
@@ -94,7 +96,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
     <div className="construct">
       <div className="header">
         <span className="rowDiv">
-        <h2>Todo List</h2>
+        <h2>To Do List</h2>
         <h5>{getCurrentDate()}</h5>
         </span>
         <TodoForm onAdd={handleAddTodo} />
@@ -108,7 +110,8 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
                 checked={todo.done}
                 onChange={() => handleTodoToggle(todo.id)}
               />
-              {todo.text} - {todo.done ? "done " : "not done "}
+              <span style={{ marginLeft: "10px" }}>{todo.text}</span>
+              - {todo.done ? "done " : "not done "}
               <button className="button" onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
             </li>
           ))}
