@@ -10,7 +10,7 @@ interface CalendarProps {
 }
 
 const Calendar = ({ year, month }: CalendarProps) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date(year, month));
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   const firstDayOfMonth = startOfMonth(currentMonth);
   const firstDayOfWeek = startOfWeek(firstDayOfMonth);
 
@@ -21,14 +21,23 @@ const Calendar = ({ year, month }: CalendarProps) => {
   }
 
   const handleNextMonth = () => {
-    const nextMonth = addMonths(currentMonth, 1);
-    setCurrentMonth(nextMonth);
+    setCurrentMonth((prevMonth) => addMonths(prevMonth, 1));
   };
-
+  
   const handlePrevMonth = () => {
-    const prevMonth = subMonths(currentMonth, 1);
-    setCurrentMonth(prevMonth);
+    setCurrentMonth((prevMonth) => subMonths(prevMonth, 1));
   };
+  
+
+  // const handleNextMonth = () => {
+  //   const nextMonth = addMonths(currentMonth, 1);
+  //   setCurrentMonth(nextMonth);
+  // };
+
+  // const handlePrevMonth = () => {
+  //   const prevMonth = subMonths(currentMonth, 1);
+  //   setCurrentMonth(prevMonth);
+  // };
 
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -36,7 +45,7 @@ const Calendar = ({ year, month }: CalendarProps) => {
     <div className="calendar-wrap">
       <div className="calendar-header">
         <Button variant="outline-success" onClick={handlePrevMonth}>Prev</Button>{' '}
-        <h2>{format(currentMonth, "MMMM yyyy")}</h2>
+        <h3>{format(currentMonth, "MMMM yyyy")}</h3>
         <Button variant="outline-success" onClick={handleNextMonth}>Next</Button>{' '}
       </div>
       <table>
