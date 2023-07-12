@@ -42,7 +42,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
   //TodoForm 컴포넌트에서 입력된 값을 서버에 POST 요청으로 보내고, 서버에서 응답받은 데이터를 상태에 추가
   const handleAddTodo = (text: string) => {
      const newTodo: Todo = {
-       id: todos.length + 1,//id 는 고유한 값이어야하므로 길이에 +1 한 값을 주어 각각이 고유한 값을 갖도록 함
+       id: todos.length + 3,//id 는 고유한 값이어야하므로 길이에 +3 한 값을 주어 각각이 고유한 값을 갖도록 함
        text,
        done: false,
      };
@@ -69,14 +69,14 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
       return todo; //done의 반대로 설정한 후
     });
     setTodos(updatedTodos); // 업데이트 된 todo배열을 setTodo 상태로 저장
-    fetch(`https://my-json-server.typicode.com/zi0ne/TODO_DB/db`, { //업데이트 할 항목의 url
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ done: !todos.find((todo) => todo.id === id)?.done }), // 업데이트 할 값을 JSON 형식으로 보내기
-      // 이전 상태에 따라서 값을 바꾸기 위해서 현재 todo의 done값이 아닌,이전에 저장된 todo의 done값을 반대로 설정하는 것
-    });
+    // fetch(`https://my-json-server.typicode.com/zi0ne/TODO_DB/db`, { //업데이트 할 항목의 url
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ done: !todos.find((todo) => todo.id === id)?.done }), // 업데이트 할 값을 JSON 형식으로 보내기
+    //   // 이전 상태에 따라서 값을 바꾸기 위해서 현재 todo의 done값이 아닌,이전에 저장된 todo의 done값을 반대로 설정하는 것
+    // });
   };
 
   // 항목을 삭제하기 위한 함수 id: number 타입을 인자로 받음
@@ -85,9 +85,9 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
     const filteredTodos = todos.filter((todo) => todo.id !== id);
     setTodos(filteredTodos); //항목 업데이트
     //해당 url을 fetch하여 삭제시킴
-    fetch(`https://my-json-server.typicode.com/zi0ne/TODO_DB/db`, {
-      method: "DELETE",
-    });
+    // fetch(`https://my-json-server.typicode.com/zi0ne/TODO_DB/db`, {
+    //   method: "DELETE",
+    // });
   };
 
 
