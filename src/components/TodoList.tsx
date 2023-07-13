@@ -1,5 +1,10 @@
+import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from "react";
 import TodoForm from "./TodoForm";
+import Calendar from "./calendar";
+import { RootState } from '../store'
+import { SelectedDate } from '../calendarReducer'
+import { format } from 'date-fns';
 import "./component.css";
 
 // Todo 항목 인터페이스 (id,text, done의 속성을 갖음)
@@ -25,11 +30,25 @@ export interface TodoListProps {
   return`${year}. ${month}. ${date}`;
 }
 
+
+
 const TodoList: React.FunctionComponent<TodoListProps> = ({
   onToggleDone,
   onDeleteTodo,
 }) => {
+
+  //저장된 상태 가져오기
+  const selectDate = useSelector((state: RootState) => state.calendar.selectedDate);
   const [todos, setTodos] = useState<Todo[]>([]); // 배열 형태의 Todo 객체를 가진 배열을 사용
+  const [date, setDate] = useState<string>(new Date().toString());
+
+  const formattedDate = format(new Date(date), 'yyyy.MM.dd');
+
+  useEffect(()=>{
+    if (selectDate !== null){
+      setDate(selectDate.toString());
+    }
+  }, )
 
   // useEffect를 사용하여 컴포넌트가 처음 렌더링 될 때, 서버에서 todo를 받아와 상태로 설정
   useEffect(() => {
@@ -97,7 +116,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({
       <div className="header">
         <span className="rowDiv">
         <h2>To Do List</h2>
-        <h5>{getCurrentDate()}</h5>
+        <h5>{formattedDate}</h5>
         </span>
         <TodoForm onAdd={handleAddTodo} />
       </div>

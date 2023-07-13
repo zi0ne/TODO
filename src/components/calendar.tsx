@@ -3,27 +3,36 @@ import { format, startOfMonth, addMonths, subMonths, startOfWeek, addDays, isSam
 import "./calendar.css";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../store'
+import { SelectedDate } from '../calendarReducer'
 
+//props 타입 지정
 interface CalendarProps {
   year: number;
   month: number;
 }
 
+// 현 날짜로 currentMonth 상태 설정, 월의 첫 날짜와 주의 첫 날짜 할당
 const Calendar = ({ year, month }: CalendarProps) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const firstDayOfMonth = startOfMonth(currentMonth);
   const firstDayOfWeek = startOfWeek(firstDayOfMonth);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
+  // 캘린더 테이블에 맞게 42개의 날짜(숫자)를 배열로 저장
   const daysInMonth:Date[] = [];
   for (let i = 0; i < 42; i++) {
     const date = addDays(firstDayOfWeek, i);
     daysInMonth.push(date);
   }
-
+ 
+  // 다음달 버튼 addMonths 사용
   const handleNextMonth = () => {
     setCurrentMonth((prevMonth) => addMonths(prevMonth, 1));
   };
   
+  // 이전달 버튼 subMonts 사용 
   const handlePrevMonth = () => {
     setCurrentMonth((prevMonth) => subMonths(prevMonth, 1));
   };
@@ -39,7 +48,19 @@ const Calendar = ({ year, month }: CalendarProps) => {
   //   setCurrentMonth(prevMonth);
   // };
 
+  // 요일 배열로 저장
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  // 클릭된 날짜 저장
+  // const electDate = (date: Date) => {
+  //   const Dispatch = useDispatch()
+  //   Dispatch(SelectedDate(date));
+  // };
+  const dispatch = useDispatch();
+
+  const selectDate = (date: Date) => {
+    dispatch(SelectedDate(date.toString()));
+  };
 
   return (
     <div className="calendar-wrap">
@@ -66,6 +87,7 @@ const Calendar = ({ year, month }: CalendarProps) => {
                   <td
                     key={weekday}
                     className={isSameMonth(date, firstDayOfMonth) ? "current-month" : "not-current-month"}
+                    onClick={() => selectDate(date)}
                   >
                     {format(date, "d")}
                   </td>
