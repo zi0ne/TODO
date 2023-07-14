@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import TodoForm from './TodoForm';
 import { RootState } from '../store';
 import { SelectedDate, Todo } from '../calendarReducer';
-import { format } from 'date-fns';
+import { format, startOfDay } from 'date-fns';
 import './component.css';
 
 export interface TodoListProps {
@@ -13,25 +13,27 @@ export interface TodoListProps {
 
 const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDeleteTodo }) => {
   const dispatch = useDispatch();
-  const selectDate = (useSelector((state: RootState) => state.calendar.selectedDate) as string);
+  const selectDate = useSelector((state: RootState) => state.calendar.selectedDate) as string;
 
   const [newTodoText, setNewTodoText] = useState('');
   const [date, setDate] = useState<string>(new Date().toString());
   const formattedDate = format(new Date(date), 'yyyy.MM.dd');
   const [todosByDate, setTodosByDate] = useState<Todo[]>([]);
 
+  const currentDate = new Date().setHours(0, 0, 0, 0);
+  const formattDate : string = new Date(currentDate).toString();
+
+
   useEffect(() => {
-    if (!selectDate) {
-      dispatch(SelectedDate(new Date().setHours(0, 0, 0, 0).toString()));
+    const initialDateKey = startOfDay(new Date()).toString();
+    const savedTodos = localStorage.getItem(initialDateKey);
+    if (savedTodos) {
+      const todos = JSON.parse(savedTodos);
+      setTodosByDate(todos);
+    } else {
+      setTodosByDate([]);
     }
   }, []);
-
-
-  useEffect(() => {
-    if (selectDate !== null) {
-      setDate(selectDate.toString());
-    }
-  }, [selectDate]);
 
   useEffect(() => {
     const savedTodos = localStorage.getItem(selectDate);
@@ -42,7 +44,6 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
       setTodosByDate([]);
     }
   }, [selectDate]);
-
 
   const handleAddTodo = () => {
     if (newTodoText.trim() === '') return;
@@ -57,8 +58,8 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
     setTodosByDate(updatedTodos);
     setNewTodoText('');
     localStorage.setItem(selectDate, JSON.stringify(updatedTodos));
-    console.log(todosByDate);
   };
+
 
   const handleDeleteTodo = (id: number) => {
     const updatedTodos = todosByDate.filter((todo: Todo) => todo.id !== id);
@@ -92,7 +93,8 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
         <TodoForm value={newTodoText} onChange={(text) => setNewTodoText(text)} onAdd={handleAddTodo} />
       </div>
       <div className="list">
-              <ul>
+        {selectDate ? (
+        <ul>
               {todosByDate.map((todo: Todo) => (
                 <li key={todo.id}>
                   <input type="checkbox" checked={todo.done} onChange={() => handleToggleDone(todo.id)} />
@@ -104,6 +106,22 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
                 </li>
               ))}
             </ul>
+            ) : (
+              <ul>
+              {localStorage.getItem(formattDate) !== null &&
+              JSON.parse(localStorage.getItem(formattDate)!).map((todo: Todo) => (
+                <li key={todo.id}>
+                  <input type="checkbox" checked={todo.done} onChange={() => handleToggleDone(todo.id)} />
+                  <span style={{ marginLeft: '10px' }}>{todo.text}</span>
+                  - {todo.done ? 'done ' : 'not done '}
+                  <button className="button" onClick={() => handleDeleteTodo(todo.id)}>
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+              )}
+              
       </div>
     </div>
   );

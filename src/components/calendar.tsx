@@ -59,6 +59,7 @@ const Calendar = ({ year, month }: CalendarProps) => {
   const dispatch = useDispatch();
 
   const selectDate = (date: Date) => {
+    console.log(date.toString());
     dispatch(SelectedDate(date.toString()));
   };
 
