@@ -2,6 +2,7 @@
 import { configureStore, Action, ThunkAction } from '@reduxjs/toolkit';
 import calendarReducer, {CalendarState} from './calendarReducer';
 
+
 export type RootState = ReturnType<typeof store.getState>; // RootState 타입 정의
 
 export type CustomThunkAPI = {
@@ -25,5 +26,6 @@ export const store = configureStore({
   reducer: {
     calendar: calendarReducer, // 상태관리 리듀서
   },
+
 });
   

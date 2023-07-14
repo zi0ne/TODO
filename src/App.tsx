@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import TodoList, { Todo } from './components/TodoList';
+import React, { useEffect, useState } from 'react';
+import TodoList from './components/TodoList';
+import { Todo } from './calendarReducer';
 import Calendar from './components/calendar';
 import './App.css'
 // json-server --watch db.json --port 3000
@@ -8,21 +9,15 @@ import './App.css'
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
- 
-
-
-  // 문자열 타입 text를 인자로 받아 newTo 객체로 만들어 setTodos를 사용하여 todo에 추가
-  const handleAddTodo = (text: string) => {
-    const newTodo: Todo = {
-      id: todos.length + 1,
-      text: text,
-      done: false,
-    };
-    setTodos([...todos, newTodo]);
-  };
+  useEffect(()=>{
+    const savedTodos = localStorage.getItem('todos');
+    if(savedTodos){
+      setTodos(JSON.parse(savedTodos));
+    }
+  }, []);
 
   //number 타입 id를 인자로 받아 바뀐 done값을 업데이트하여 상태에 반영
-  const handleTodoToggle = (id: number) => {
+  const handleTodoToggle = (date: string, id: number) => {
     const updatedTodos = todos.map(todo => {
       if (todo.id === id) {
         return { ...todo, done: !todo.done };
@@ -33,11 +28,14 @@ export const App: React.FC = () => {
   };
 
   
-  const handleDeleteTodo = (id: number) => {
+  const handleDeleteTodo = (date: string, id: number) => {
     const updatedTodos = todos.filter(todo => todo.id !== id);
     setTodos(updatedTodos);
   };
 
+  useEffect(()=>{
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth()+1);
 
@@ -45,7 +43,7 @@ export const App: React.FC = () => {
   return (
     <div className='full'>
       <Calendar year={currentYear} month={currentMonth}/>
-      <TodoList todos={todos} onToggleDone={handleTodoToggle} onDeleteTodo={handleDeleteTodo} />
+      <TodoList onToggleDone={handleTodoToggle} onDeleteTodo={handleDeleteTodo} />
     </div>
   );
 };
