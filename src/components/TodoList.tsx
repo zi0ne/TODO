@@ -57,14 +57,23 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
     const updatedTodos = [...todosByDate, newTodo];
     setTodosByDate(updatedTodos);
     setNewTodoText('');
-    localStorage.setItem(selectDate, JSON.stringify(updatedTodos));
+    if (selectDate) {
+      localStorage.setItem(selectDate, JSON.stringify(updatedTodos));
+    } else {
+      localStorage.setItem(formattDate, JSON.stringify(updatedTodos));
+    }
+
   };
 
 
   const handleDeleteTodo = (id: number) => {
     const updatedTodos = todosByDate.filter((todo: Todo) => todo.id !== id);
     setTodosByDate(updatedTodos);
-    localStorage.setItem(selectDate, JSON.stringify(updatedTodos));
+    if (selectDate) {
+      localStorage.setItem(selectDate, JSON.stringify(updatedTodos));
+    } else {
+      localStorage.setItem(formattDate, JSON.stringify(updatedTodos));
+    }
     onDeleteTodo(selectDate, id);
   };
 
@@ -79,7 +88,11 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
       return todo;
     });
     setTodosByDate(updatedTodos);
-    localStorage.setItem(selectDate, JSON.stringify(updatedTodos));
+    if (selectDate) {
+      localStorage.setItem(selectDate, JSON.stringify(updatedTodos));
+    } else {
+      localStorage.setItem(formattDate, JSON.stringify(updatedTodos));
+    }
     onToggleDone(selectDate, id);
   };
 
@@ -87,7 +100,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
     <div className="construct">
       <div className="header">
         <span className="rowDiv">
-          <h2>To Do List{selectDate}</h2>
+          <h2>To Do List</h2>
           <h5>{formattedDate}</h5>
         </span>
         <TodoForm value={newTodoText} onChange={(text) => setNewTodoText(text)} onAdd={handleAddTodo} />
