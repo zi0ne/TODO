@@ -15,6 +15,9 @@ interface CalendarProps {
 
 // 현 날짜로 currentMonth 상태 설정, 월의 첫 날짜와 주의 첫 날짜 할당
 const Calendar = ({ year, month }: CalendarProps) => {
+  
+  const todos = useSelector((state:RootState) => state.calendar.todos);
+
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const firstDayOfMonth = startOfMonth(currentMonth);
   const firstDayOfWeek = startOfWeek(firstDayOfMonth);
@@ -59,9 +62,18 @@ const Calendar = ({ year, month }: CalendarProps) => {
   const dispatch = useDispatch();
 
   const selectDate = (date: Date) => {
-    console.log(date.toString());
     dispatch(SelectedDate(date.toString()));
   };
+
+
+  // 로컬에 todo 목록이 저장된 키만 가져오기
+  const keysWithValues = Object.keys(localStorage).filter((key) => {
+    return key !== 'todos';
+  });
+  
+  console.log(keysWithValues);
+  
+  
 
   return (
     <div className="calendar-wrap">
@@ -84,10 +96,13 @@ const Calendar = ({ year, month }: CalendarProps) => {
               {weekdays.map((weekday) => {
                 const dateIndex = weekIndex * 7 + weekdays.indexOf(weekday);
                 const date = daysInMonth[dateIndex];
+                
                 return (
                   <td
                     key={weekday}
-                    className={isSameMonth(date, firstDayOfMonth) ? "current-month" : "not-current-month"}
+                    className={`${
+                      isSameMonth(date, firstDayOfMonth) ? "current-month" : "not-current-month"
+                    } ${keysWithValues.includes(date.toString()) ? "yes-todos" : "no-todos"}`}
                     onClick={() => selectDate(date)}
                   >
                     {format(date, "d")}

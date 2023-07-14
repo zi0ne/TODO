@@ -13,12 +13,18 @@
 .calendar-header{
     display: flex;
     flex-direction: row;
-    width: 50%;
+    width: 60%;
     justify-content: space-around;
     align-items: center;
 }
 
+.not-current-month{
+    color: #a9a9a9;
+}
 
+.current-month{
+    color: #000000;
+}
   
 table{
     margin-top: 5%;
@@ -32,13 +38,18 @@ td{
     flex-grow:1;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+}
+.yes-todos{
+    background: yellow;
 }
 
 button{
     text-align: center;
     display: flex;
-    height: 80%;
+    height: 85%;
 }
 thead{
     width:  20%;
 }
+

@@ -5,23 +5,22 @@
 .construct{
     display:flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    height: 80vh;
+    height: 100vh;
     position: relative;
     width: 50%;
 }
 
 .header{
-    position: fixed; /*위치 상단 고정*/
-    top : 17vh;
-    margin-left: 5vh;
+  margin-right: 45%;
+  margin-bottom: 5%;
 }
 
 .list{
-    position: fixed;
     height: 30vh;
     overflow-y: scroll; /*영역 벗어나면 스크롤*/
-    margin-top: 17vh;
+    margin-left: -45%;
     
 }
 
@@ -49,7 +48,10 @@
   }
 
   h5{
-    padding-top: 1vh;
+    padding-top: 2vh;
     margin-left: 15px;
+    color: #5E5D5D;
   }
-
+  li{
+    margin-top: 7px;
+  }
