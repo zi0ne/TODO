@@ -41,7 +41,8 @@ td{
     cursor: pointer;
 }
 .yes-todos{
-    background: yellow;
+    border:solid 3px #198754;
+    border-radius: 10px;
 }
 
 button{

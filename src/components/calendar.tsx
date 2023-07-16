@@ -68,7 +68,7 @@ const Calendar = ({ year, month }: CalendarProps) => {
 
   // 로컬에 todo 목록이 저장된 키만 가져오기
   const keysWithValues = Object.keys(localStorage).filter((key) => {
-    return key !== 'todos';
+    return key !== 'todos' && key !== null;
   });
   
   console.log(keysWithValues);
