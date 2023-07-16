@@ -27,8 +27,10 @@ const TodoForm: React.FC<TodoFormProps> = ({ value, onChange, onAdd }) => {
   // input과button(헤더부분) 요소를 렌더링 onChange 이벤트 핸들러를사용하여 입력값이 변할 때 text 상태 업데이트
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={value} onChange={(e) => onChange(e.target.value)} />
-      <button className="button">Add</button>
+      <div className="inputDiv">
+      <input type="text" placeholder="할 일을 입력하세요..." value={value} onChange={(e) => onChange(e.target.value)} />
+      </div>
+      <button className="button1">Add</button>
     </form>
   );
 };

@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 50%;
+    min-width: 500px;
     align-items: center;
     justify-content: center;
     margin-left: 8%;
@@ -41,7 +42,7 @@ td{
     cursor: pointer;
 }
 .yes-todos{
-    border:solid 3px #198754;
+    background-color: #98c4ac;
     border-radius: 10px;
 }
 

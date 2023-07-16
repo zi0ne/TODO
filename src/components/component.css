@@ -5,11 +5,13 @@
 .construct{
     display:flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     height: 100vh;
-    position: relative;
     width: 50%;
+    min-width: 510px;
+    position: relative;
+    padding-left: 5%;
+    
 }
 
 .header{
@@ -19,13 +21,21 @@
 
 .list{
     height: 30vh;
+    width: 60%;
+    margin-left: -15px;
     overflow-y: scroll; /*영역 벗어나면 스크롤*/
-    margin-left: -45%;
-    
+    overflow-x: scroll;
+        
 }
 
-.button {
-    background-color: #4CAF50; 
+form{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.button ,.button1{
+    background-color: #489d72; 
     border: none; 
     color: white; 
     padding: 4px 9px; 
@@ -37,6 +47,9 @@
     cursor: pointer; /* 커서 스타일 변경 */
     border-radius: 4px; 
   }
+  .button1{
+    margin-left: 5px;
+  }
   
   button:hover {
     opacity: 0.8; /* 마우스 오버 효과 */
@@ -45,6 +58,8 @@
   .rowDiv{
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 15px;
   }
 
   h5{
@@ -55,3 +70,23 @@
   li{
     margin-top: 7px;
   }
+
+  input{
+    padding: 5px 0px 0px 10px;
+    border: none;
+  }
+
+  input:focus {
+    outline: none;
+  }
+  
+  .inputDiv{
+    margin-bottom: 3px;
+    border-bottom: solid 2px #489d72;
+  }
+
+  button{
+    text-align: center;
+    display: flex;
+    height: 85%;
+}

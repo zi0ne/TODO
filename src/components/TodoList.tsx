@@ -117,10 +117,10 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
   return (
     <div className="construct">
       <div className="header">
-        <span className="rowDiv">
+        <div className="rowDiv">
           <h2>To Do List</h2>
           <h5>{formattedDate}</h5>
-        </span>
+        </div>
         <TodoForm value={newTodoText} onChange={(text) => setNewTodoText(text)} onAdd={handleAddTodo} />
       </div>
       <div className="list">
@@ -130,7 +130,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
                 <li key={todo.id}>
                   <input type="checkbox" checked={todo.done} onChange={() => handleToggleDone(todo.id)} />
                   <span style={{ marginLeft: '10px' }}>{todo.text}</span>
-                  - {todo.done ? 'done ' : 'not done '}
+                  - {todo.done ? 'done ' : 'doing '}
                   <button className="button" onClick={() => handleDeleteTodo(todo.id)}>
                     Delete
                   </button>
