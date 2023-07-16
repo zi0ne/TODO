@@ -9,9 +9,10 @@ import './component.css';
 export interface TodoListProps {
   onDeleteTodo: (date: string, id: number) => void;
   onToggleDone: (date: string, id: number) => void;
+  onAddTodo: (date: string, text: string) => void;
 }
 
-const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDeleteTodo }) => {
+const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDeleteTodo, onAddTodo }) => {
   const dispatch = useDispatch();
   const selectDate = useSelector((state: RootState) => state.calendar.selectedDate) as string;
 
@@ -70,7 +71,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
     } else {
       localStorage.setItem(formattDate, JSON.stringify(updatedTodos));
     }
-
+    onAddTodo(selectDate, newTodoText);
   };
 
 

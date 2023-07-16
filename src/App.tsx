@@ -16,6 +16,17 @@ export const App: React.FC = () => {
     }
   }, []);
 
+  const handleAddTodo = (date: string, text: string) => {
+    const newTodo: Todo = {
+      id: Date.now(),
+      text: text,
+      done: false,
+    };
+
+    const updatedTodos = [...todos, newTodo];
+    setTodos(updatedTodos);
+  };
+
   //number 타입 id를 인자로 받아 바뀐 done값을 업데이트하여 상태에 반영
   const handleTodoToggle = (date: string, id: number) => {
     const updatedTodos = todos.map(todo => {
@@ -43,7 +54,7 @@ export const App: React.FC = () => {
   return (
     <div className='full'>
       <Calendar year={currentYear} month={currentMonth}/>
-      <TodoList onToggleDone={handleTodoToggle} onDeleteTodo={handleDeleteTodo} />
+      <TodoList onToggleDone={handleTodoToggle} onDeleteTodo={handleDeleteTodo} onAddTodo={handleAddTodo}/>
     </div>
   );
 };
