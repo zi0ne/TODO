@@ -3,8 +3,7 @@ import { format, startOfMonth, addMonths, subMonths, startOfWeek, addDays, isSam
 import "./calendar.css";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../store'
+import { useDispatch } from 'react-redux'
 import { SelectedDate } from '../calendarReducer'
 
 //props 타입 지정
@@ -16,12 +15,9 @@ interface CalendarProps {
 // 현 날짜로 currentMonth 상태 설정, 월의 첫 날짜와 주의 첫 날짜 할당
 const Calendar = ({ year, month }: CalendarProps) => {
   
-  const todos = useSelector((state:RootState) => state.calendar.todos);
-
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const firstDayOfMonth = startOfMonth(currentMonth);
   const firstDayOfWeek = startOfWeek(firstDayOfMonth);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   // 캘린더 테이블에 맞게 42개의 날짜(숫자)를 배열로 저장
   const daysInMonth:Date[] = [];

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./component.css"
 
 //TodoFormProps 인터페이스정의 : 입력받을 값은 문자열임을 알려줌

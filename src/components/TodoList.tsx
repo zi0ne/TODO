@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 import { useState, useEffect } from 'react';
 import TodoForm from './TodoForm';
 import { RootState } from '../store';
-import { SelectedDate, Todo } from '../calendarReducer';
-import { format, startOfDay } from 'date-fns';
+import { Todo } from '../calendarReducer';
+import { format } from 'date-fns';
 import './component.css';
 
 export interface TodoListProps {
@@ -13,7 +13,6 @@ export interface TodoListProps {
 }
 
 const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDeleteTodo, onAddTodo }) => {
-  const dispatch = useDispatch();
   const selectDate = useSelector((state: RootState) => state.calendar.selectedDate) as string;
 
   const [newTodoText, setNewTodoText] = useState('');

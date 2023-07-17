@@ -47,8 +47,8 @@ export const App: React.FC = () => {
   useEffect(()=>{
     localStorage.setItem('todos', JSON.stringify(todos))
   })
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth()+1);
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth()+1;
 
 
   return (
