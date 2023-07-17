@@ -23,7 +23,6 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
   const currentDate = new Date().setHours(0, 0, 0, 0);
   const formattDate : string = new Date(currentDate).toString();
 
-
   useEffect(() => {
     const savedTodos = localStorage.getItem(selectDate);
     if (savedTodos) {
@@ -132,7 +131,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
                 <li key={todo.id}>
                   <input type="checkbox" checked={todo.done} onChange={() => handleToggleDone(todo.id)} />
                   <span style={{ marginLeft: '10px' }}>{todo.text}</span>
-                  - {todo.done ? 'done ' : 'not done '}
+                  - {todo.done ? 'done ' : 'doing '}
                   <button className="button" onClick={() => handleDeleteTodo(todo.id)}>
                     Delete
                   </button>
