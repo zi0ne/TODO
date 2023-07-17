@@ -24,17 +24,6 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
   const formattDate : string = new Date(currentDate).toString();
 
 
-  // useEffect(() => {
-  //   const initialDateKey = startOfDay(new Date()).toString();
-  //   const savedTodos = localStorage.getItem(initialDateKey);
-  //   if (savedTodos) {
-  //     const todos = JSON.parse(savedTodos);
-  //     setTodosByDate(todos);
-  //   } else {
-  //     setTodosByDate([]);
-  //   }
-  // }, []);
-
   useEffect(() => {
     const savedTodos = localStorage.getItem(selectDate);
     if (savedTodos) {

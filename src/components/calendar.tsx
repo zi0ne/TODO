@@ -37,24 +37,9 @@ const Calendar = ({ year, month }: CalendarProps) => {
   };
   
 
-  // const handleNextMonth = () => {
-  //   const nextMonth = addMonths(currentMonth, 1);
-  //   setCurrentMonth(nextMonth);
-  // };
-
-  // const handlePrevMonth = () => {
-  //   const prevMonth = subMonths(currentMonth, 1);
-  //   setCurrentMonth(prevMonth);
-  // };
-
   // 요일 배열로 저장
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  // 클릭된 날짜 저장
-  // const electDate = (date: Date) => {
-  //   const Dispatch = useDispatch()
-  //   Dispatch(SelectedDate(date));
-  // };
   const dispatch = useDispatch();
 
   const selectDate = (date: Date) => {

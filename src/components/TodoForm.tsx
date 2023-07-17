@@ -8,10 +8,7 @@ export interface TodoFormProps {
   onAdd: (text: string) => void; // 클릭 이벤트
 }
 
-//TodoForm은 리액트 함수 컴포넌트,TodoFormProps 타입의 onAdd 를 인자로 받아서 사용할 것
-// text의 디폴트는 빈문자이고, handleSubmit을 이용해 이벤트 객체를 받아
-//preventDefalut()로 바로제출되는 이벤트를 막고
-//입력된 text가 비어있지 않다면 onAdd 호출하고 text를 초기화시킨다
+
 const TodoForm: React.FC<TodoFormProps> = ({ value, onChange, onAdd }) => {
   //const [text, setText] = useState("");
 

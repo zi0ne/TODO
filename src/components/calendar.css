@@ -44,6 +44,7 @@ td{
 .yes-todos{
     background-color: #98c4ac;
     border-radius: 10px;
+    border: solid 1px #ffffff;
 }
 
 button{

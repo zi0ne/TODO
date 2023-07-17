@@ -1,23 +1,23 @@
 {
   "todos": [
     {
-      "id": 1,
-      "text": "멋지다 지원아,,,",
-      "done": false
-    },
-    {
       "id": 2,
-      "text": "최고,,,, ",
+      "text": "프로젝트 중간보고",
       "done": false
     },
     {
       "id": 3,
-      "text": "헤헤헤헿",
+      "text": "포트폴리오작성",
       "done": false
     },
     {
       "id": 4,
-      "text": "오늘은 디자인하는날",
+      "text": "운동하기",
+      "done": false
+    },
+    {
+      "id": 5,
+      "text": "회고록 작성",
       "done": false
     }
   ]

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://my-json-server.typicode.com/zi0ne/TODO_DB/db";
 
 export const getTodos = async () => {
   const response = await axios.get(`${API_URL}/todos`);
