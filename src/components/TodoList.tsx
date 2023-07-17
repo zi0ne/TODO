@@ -23,23 +23,29 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
   const currentDate = new Date().setHours(0, 0, 0, 0);
   const formattDate : string = new Date(currentDate).toString();
 
-  useEffect(() => {
-    const savedTodos = localStorage.getItem(selectDate);
-    if (savedTodos) {
-      const todos = JSON.parse(savedTodos);
-      setTodosByDate(todos);
-    } else {
-      setTodosByDate([]);
-    }
-  }, [selectDate]);
 
   useEffect(() => {
     if (selectDate) {
+      const savedTodos = localStorage.getItem(selectDate);
       setDate(selectDate);
+      if (savedTodos) {
+        const todos = JSON.parse(savedTodos);
+        setTodosByDate(todos);
+      } else {
+        setTodosByDate([]);
+      }
     } else {
-      setDate(new Date().toString());
+      const savedTodos = localStorage.getItem(formattDate);
+      if (savedTodos) {
+        const todos = JSON.parse(savedTodos);
+        setTodosByDate(todos);
+      } else {
+        setTodosByDate([]);
+      }
     }
-  }, [selectDate]);
+  }, [selectDate,formattDate]);
+  
+  
 
   const handleAddTodo = () => {
     if (newTodoText.trim() === '') return;
