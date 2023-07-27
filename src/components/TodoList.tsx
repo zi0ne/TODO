@@ -14,7 +14,9 @@ export interface TodoListProps {
 
 const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDeleteTodo, onAddTodo }) => {
   const selectDate = useSelector((state: RootState) => state.calendar.selectedDate) as string;
-
+ 
+  const [prevToggleState, setPrevToggleState] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [newTodoText, setNewTodoText] = useState('');
   const [date, setDate] = useState<string>(new Date().toString());
   const formattedDate = format(new Date(date), 'yyyy.MM.dd');
@@ -44,8 +46,22 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
       }
     }
   }, [selectDate,formattDate]);
-  
-  
+
+
+  useEffect(() => {
+    if (selectDate) {
+      const id = todosByDate.find((todo) => todo.done)?.id;
+      setPrevToggleState(todosByDate.find((todo) => todo.id === id)?.done || false);
+    }
+  }, [todosByDate, selectDate]);
+
+  // 팝업창
+  const showAndHidePopup = () => {
+    setShowPopup(true);
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 3000); 
+  };
 
   const handleAddTodo = () => {
     if (newTodoText.trim() === '') return;
@@ -98,7 +114,14 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
       }
       return todo;
     });
+
+    if (!prevToggleState && updatedTodos.find((todo) => todo.id === id)?.done) {
+      showAndHidePopup();
+    }
+
     setTodosByDate(updatedTodos);
+    setPrevToggleState(updatedTodos.find((todo) => todo.id === id)?.done || false);
+
     if (selectDate) {
       localStorage.setItem(selectDate, JSON.stringify(updatedTodos));
     } else {
@@ -147,6 +170,11 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
               )}
               
       </div>
+      {showPopup && (
+      <div className="popup">
+        팝업 알림 메시지를 여기에 넣어주세요.
+      </div>
+    )}
     </div>
   );
 };
