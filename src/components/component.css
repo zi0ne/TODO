@@ -11,7 +11,7 @@
     min-width: 510px;
     position: relative;
     padding-left: 5%;
-    
+    position: relative;
 }
 
 .header{
@@ -90,3 +90,4 @@ form{
     display: flex;
     height: 85%;
 }
+

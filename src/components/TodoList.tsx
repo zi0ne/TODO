@@ -5,6 +5,9 @@ import { RootState } from '../store';
 import { Todo } from '../calendarReducer';
 import { format } from 'date-fns';
 import './component.css';
+import '../App.css';
+import confetti from 'canvas-confetti';
+
 
 export interface TodoListProps {
   onDeleteTodo: (date: string, id: number) => void;
@@ -15,12 +18,13 @@ export interface TodoListProps {
 const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDeleteTodo, onAddTodo }) => {
   const selectDate = useSelector((state: RootState) => state.calendar.selectedDate) as string;
  
-  const [prevToggleState, setPrevToggleState] = useState(false);
+
   const [showPopup, setShowPopup] = useState(false);
   const [newTodoText, setNewTodoText] = useState('');
   const [date, setDate] = useState<string>(new Date().toString());
   const formattedDate = format(new Date(date), 'yyyy.MM.dd');
   const [todosByDate, setTodosByDate] = useState<Todo[]>([]);
+  
 
   const currentDate = new Date().setHours(0, 0, 0, 0);
   const formattDate : string = new Date(currentDate).toString();
@@ -48,19 +52,13 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
   }, [selectDate,formattDate]);
 
 
-  useEffect(() => {
-    if (selectDate) {
-      const id = todosByDate.find((todo) => todo.done)?.id;
-      setPrevToggleState(todosByDate.find((todo) => todo.id === id)?.done || false);
-    }
-  }, [todosByDate, selectDate]);
 
   // 팝업창
   const showAndHidePopup = () => {
     setShowPopup(true);
     setTimeout(() => {
       setShowPopup(false);
-    }, 3000); 
+    }, 1000); 
   };
 
   const handleAddTodo = () => {
@@ -104,8 +102,11 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
     onDeleteTodo(selectDate, id);
   };
 
+  
+
   const handleToggleDone = (id: number) => {
     const updatedTodos = todosByDate.map((todo: Todo) => {
+      console.log(todo);
       if (todo.id === id) {
         return {
           ...todo,
@@ -115,12 +116,17 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
       return todo;
     });
 
-    if (!prevToggleState && updatedTodos.find((todo) => todo.id === id)?.done) {
+    setTodosByDate(updatedTodos);
+      
+    if (updatedTodos.find((todo) => todo.id === id)?.done) {
       showAndHidePopup();
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
     }
 
-    setTodosByDate(updatedTodos);
-    setPrevToggleState(updatedTodos.find((todo) => todo.id === id)?.done || false);
 
     if (selectDate) {
       localStorage.setItem(selectDate, JSON.stringify(updatedTodos));
@@ -172,7 +178,7 @@ const TodoList: React.FunctionComponent<TodoListProps> = ({ onToggleDone, onDele
       </div>
       {showPopup && (
       <div className="popup">
-        팝업 알림 메시지를 여기에 넣어주세요.
+        해결 완료 🥳
       </div>
     )}
     </div>
